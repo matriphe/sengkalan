@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"math/rand"
 	"os"
 	"strconv"
@@ -146,6 +148,18 @@ func main() {
 		return
 	}
 
+	kamusID, err := muatKamus("./kamus/id.json")
+	if err != nil {
+		tampilkanKesalahan(fmt.Sprintf("Tidak dapat memuat kamus ID, karena: %s", err.Error()))
+		return
+	}
+
+	kamusJV, err := muatKamus("./kamus/jv.json")
+	if err != nil {
+		tampilkanKesalahan(fmt.Sprintf("Tidak dapat memuat kamus JV, karena: %s", err.Error()))
+		return
+	}
+
 	tahunMasehi := args[0]
 	tahun, err := time.Parse("2006", tahunMasehi)
 	if err != nil {
@@ -156,33 +170,51 @@ func main() {
 	tahunHijriyah, _, _ := hijri.ToHijri(tahun)
 	tahunJawa := strconv.Itoa(tahunHijriyah + 512)
 
+	sengkalanMasehi := buatSengkalan(tahunMasehi)
+	artiMasehi := cariArtiSengkalan(sengkalanMasehi, kamusID, kamusJV)
+
+	sengkalanJawa := buatSengkalan(tahunJawa)
+	artiJawa := cariArtiSengkalan(sengkalanJawa, kamusID, kamusJV)
+
 	fmt.Println("📅 Tahun Masehi:", tahunMasehi)
-	fmt.Println("📃 Sengkalan Masehi:", strings.Join(buatSengkalan(tahunMasehi), " "))
+	fmt.Println("📃 Sengkalan Masehi:", strings.Join(sengkalanMasehi, " "))
+	fmt.Println("📜 Makna Sengkalan Masehi:")
+	tampilkanArti(artiMasehi)
+
 	fmt.Println("")
+
 	fmt.Println("📅 Tahun Jawa:", tahunJawa)
-	fmt.Println("📃 Sengkalan Jawa:", strings.Join(buatSengkalan(tahunJawa), " "))
+	fmt.Println("📃 Sengkalan Jawa:", strings.Join(sengkalanJawa, " "))
+	fmt.Println("📜 Makna Sengkalan Jawa:")
+	tampilkanArti(artiJawa)
 
 	fmt.Println("")
 }
 
-func tampilkanBantuan(pesan string) {
-	msg := fmt.Sprintf("❌  Terjadi kesalahan: %s", pesan)
+func tampilkanKesalahan(pesan string) {
+	msg := fmt.Sprintf("❌  %s", pesan)
 	numMsg := len(msg)
 
 	fmt.Println(strings.Repeat("=", numMsg))
-	fmt.Println("❌  Terjadi kesalahan:", pesan)
+	fmt.Println(msg)
 	fmt.Println(strings.Repeat("-", numMsg))
+}
+
+func tampilkanBantuan(pesan string) {
+	tampilkanKesalahan(pesan)
 	fmt.Println("ℹ️ Penggunaan: sengkalan [tahun]")
 	fmt.Println("🤖 Contoh: sengkalan", time.Now().Year())
 }
 
-func cekValiditasTahun(tahun string) bool {
-	_, err := time.Parse("2006", tahun)
-	if err != nil {
-		return false
+func tampilkanArti(arti map[string]map[string]string) {
+	for k, ar := range arti {
+		fmt.Printf("   > %s:\n", k)
+		for i, a := range ar {
+			if a != "" {
+				fmt.Printf("     >> (%s) %s\n", i, a)
+			}
+		}
 	}
-
-	return true
 }
 
 func buatSengkalan(tahun string) []string {
@@ -203,6 +235,47 @@ func buatSengkalan(tahun string) []string {
 	}
 
 	return watak
+}
+
+func muatKamus(filename string) (map[string]string, error) {
+	j, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return nil, err
+	}
+
+	kamus := make(map[string]string)
+	err = json.Unmarshal(j, &kamus)
+	if err != nil {
+		return nil, err
+	}
+
+	return kamus, nil
+}
+
+func cariArti(kata string, kamus map[string]string) string {
+	kata = strings.ToLower(kata)
+
+	eWords := []string{"\\u00e9", "\\u00e8", "\\u00ea", "é", "è", "ê"}
+	for _, e := range eWords {
+		kata = strings.Replace(kata, e, "e", len(kata))
+	}
+
+	if arti, ok := kamus[kata]; ok {
+		return arti
+	}
+
+	return ""
+}
+
+func cariArtiSengkalan(sengkalan []string, kamusID, kamusJV map[string]string) map[string]map[string]string {
+	arti := make(map[string]map[string]string, len(sengkalan))
+	for _, k := range sengkalan {
+		arti[k] = make(map[string]string, 0)
+		arti[k]["ID"] = cariArti(k, kamusID)
+		arti[k]["JV"] = cariArti(k, kamusJV)
+	}
+
+	return arti
 }
 
 func reverse(s string) string {
