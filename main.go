@@ -177,15 +177,15 @@ func main() {
 	artiJawa := cariArtiSengkalan(sengkalanJawa, kamusID, kamusJV)
 
 	fmt.Println("📅 Tahun Masehi:", tahunMasehi)
-	fmt.Println("📃 Sengkalan Masehi:", strings.Join(sengkalanMasehi, " "))
-	fmt.Println("📜 Makna Sengkalan Masehi:")
+	fmt.Println("☀️ Surya Sengkala:", strings.Join(sengkalanMasehi, " "))
+	fmt.Println("📜 Makna Surya Sengkala:")
 	tampilkanArti(artiMasehi)
 
 	fmt.Println("")
 
 	fmt.Println("📅 Tahun Jawa:", tahunJawa)
-	fmt.Println("📃 Sengkalan Jawa:", strings.Join(sengkalanJawa, " "))
-	fmt.Println("📜 Makna Sengkalan Jawa:")
+	fmt.Println("🌙 Candra Sengkala:", strings.Join(sengkalanJawa, " "))
+	fmt.Println("📜 Makna Candra Sengkala:")
 	tampilkanArti(artiJawa)
 
 	fmt.Println("")
