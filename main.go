@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/RadhiFadlillah/go-hijri"
 )
 
 const versi = "0.1"
@@ -145,13 +147,20 @@ func main() {
 	}
 
 	tahunMasehi := args[0]
-	if !cekValiditasTahun(tahunMasehi) {
+	tahun, err := time.Parse("2006", tahunMasehi)
+	if err != nil {
 		tampilkanBantuan("Tahun tidak valid")
 		return
 	}
 
+	tahunHijriyah, _, _ := hijri.ToHijri(tahun)
+	tahunJawa := strconv.Itoa(tahunHijriyah + 512)
+
 	fmt.Println("📅 Tahun Masehi:", tahunMasehi)
 	fmt.Println("📃 Sengkalan Masehi:", strings.Join(buatSengkalan(tahunMasehi), " "))
+	fmt.Println("")
+	fmt.Println("📅 Tahun Jawa:", tahunJawa)
+	fmt.Println("📃 Sengkalan Jawa:", strings.Join(buatSengkalan(tahunJawa), " "))
 
 	fmt.Println("")
 }
