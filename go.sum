@@ -1,0 +1,4 @@
+github.com/RadhiFadlillah/go-hijri v1.0.0 h1:gqvr3hO+9aJCb5zf0UfzdHnIBr8kq5H/Swgnx59fJkA=
+github.com/RadhiFadlillah/go-hijri v1.0.0/go.mod h1:SjOq2n/7O1yJ/eIu/vR6PNZaIqCTVucHeSE/JH1Oi08=
+github.com/shopspring/decimal v0.0.0-20180709203117-cd690d0c9e24 h1:pntxY8Ary0t43dCZ5dqY4YTJCObLY1kIXl0uzMv+7DE=
+github.com/shopspring/decimal v0.0.0-20180709203117-cd690d0c9e24/go.mod h1:M+9NzErvs504Cn4c5DxATwIqPbtswREoFCre64PpcG4=
