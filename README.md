@@ -51,4 +51,4 @@ Sengkalan versi  0.2
 
 ## Lisensi
 
-- [MIT](LICENSE.md)
+Sengkalan didistribusikan menggunakan [lisensi MIT](LICENSE.md).
