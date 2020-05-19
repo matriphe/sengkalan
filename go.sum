@@ -1,4 +1,10 @@
 github.com/RadhiFadlillah/go-hijri v1.0.0 h1:gqvr3hO+9aJCb5zf0UfzdHnIBr8kq5H/Swgnx59fJkA=
 github.com/RadhiFadlillah/go-hijri v1.0.0/go.mod h1:SjOq2n/7O1yJ/eIu/vR6PNZaIqCTVucHeSE/JH1Oi08=
+github.com/matriphe/sengkala v0.0.0-20200519140134-c9b3b2802f4a h1:P0yFNkMGd6VCZdNnZNDmKVWspTierPSKdHjPqqulLrU=
+github.com/matriphe/sengkala v0.0.0-20200519140134-c9b3b2802f4a/go.mod h1:8Tl0+vWaUvin639MYVhEleIvTEwoO7wBs66RQpiA7/g=
+github.com/matriphe/sengkala v0.0.0-20200519141921-bb6f7e0731f2 h1:vBUWQeJQORl6k0eZBk1+lbJv+sJrnUDY1c8CuVHsK8M=
+github.com/matriphe/sengkala v0.0.0-20200519141921-bb6f7e0731f2/go.mod h1:8Tl0+vWaUvin639MYVhEleIvTEwoO7wBs66RQpiA7/g=
 github.com/shopspring/decimal v0.0.0-20180709203117-cd690d0c9e24 h1:pntxY8Ary0t43dCZ5dqY4YTJCObLY1kIXl0uzMv+7DE=
 github.com/shopspring/decimal v0.0.0-20180709203117-cd690d0c9e24/go.mod h1:M+9NzErvs504Cn4c5DxATwIqPbtswREoFCre64PpcG4=
+github.com/shopspring/decimal v1.2.0 h1:abSATXmQEYyShuxI4/vyW3tV1MrKAJzCZ/0zLUXYbsQ=
+github.com/shopspring/decimal v1.2.0/go.mod h1:DKyhrW/HYNuLGql+MJL6WCR6knT2jwCFRcu2hWCYk4o=
